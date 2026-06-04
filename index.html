@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Chat Pro Final Fix - Discord Style</title>
+
+<style>
+:root {
+    --bg-sidebar: #1e1f22;
+    --bg-chat: #313338;
+    --bg-input: #383a40;
+    --text: #dbdee1;
+    --accent: #5865f2;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--bg-chat);
+    color: var(--text);
+    overflow: hidden;
+}
+
+/* SIDEBAR */
+#sidebar {
+    width: 240px;
+    height: 100vh;
+    float: left;
+    background: var(--bg-sidebar);
+    display: flex;
+    flex-direction: column;
+}
+
+#sidebar-header {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    align-items: center;
+}
+
+.channel-item {
+    padding: 8px 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.channel-item:hover,
+.channel-item.active {
+    background: #2b2d31;
+}
+
+.channel-item span {
+    flex: 1;
+}
+
+.btn-delete-channel {
+    background: transparent;
+    color: #949ba4;
+    padding: 2px 6px;
+    font-size: 12px;
+    border-radius: 3px;
+    display: none; /* Ẩn đi, chỉ hiện khi hover */
+}
+
+.channel-item:hover .btn-delete-channel {
+    display: inline-block;
+}
+
+.btn-delete-channel:hover {
+    background: #f23f43;
+    color: white;
+}
+
+/* MAIN */
+#main {
+    margin-left: 240px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#chat-header {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#chat-box {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+}
+
+/* TOOLBAR */
+#toolbar {
+    display: flex;
+    gap: 8px;
+    padding: 8px;
+    background: #2b2d31;
+}
+
+button {
+    background: var(--accent);
+    border: none;
+    color: white;
+    padding: 5px 8px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+/* MESSAGE */
+.msg-container {
+    padding: 8px;
+    margin-bottom: 6px;
+    background: #2b2d31;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 5px;
+    align-items: flex-start;
+}
+
+.msg-content {
+    flex: 1;
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
+/* INPUT */
+#text {
+    min-height: 50px;
+    margin: 10px;
+    padding: 8px;
+    background: var(--bg-input);
+    border-radius: 5px;
+    outline: none;
+    overflow-y: auto;
+}
+
+/* TOAST */
+#copy-toast {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #23a559;
+    padding: 8px 14px;
+    border-radius: 20px;
+    display: none;
+    z-index: 999;
+}
+</style>
+</head>
+
+<body>
+
+<div id="copy-toast">Đã sao chép</div>
+
+<div id="sidebar">
+    <div id="sidebar-header">
+        CHAT
+        <button onclick="createChannel()">+</button>
+    </div>
+    <div id="channel-list"></div>
+</div>
+
+<div id="main">
+
+    <div id="chat-header">
+        <span id="current"># general</span>
+
+        <div style="margin-left:auto; display:flex; gap:5px;">
+            <button onclick="zoomOut()">-</button>
+            <button onclick="resetZoom()">100%</button>
+            <button onclick="zoomIn()">+</button>
+        </div>
+
+        <button onclick="clearChat()" style="background:red;">Xóa lịch sử</button>
+    </div>
+
+    <div id="toolbar">
+        <button onclick="format('bold')"><b>B</b></button>
+        <button onclick="format('italic')"><i>I</i></button>
+        <button onclick="format('insertUnorderedList')">List</button>
+    </div>
+
+    <div id="chat-box"></div>
+
+    <div id="text" contenteditable="true"></div>
+</div>
+
+<script>
+
+/* ===== ZOOM FIX ===== */
+let zoom = 1;
+function setZoom(v) {
+    zoom = Math.max(0.6, Math.min(1.8, v));
+    document.documentElement.style.zoom = zoom;
+}
+function zoomIn() { setZoom(zoom + 0.1); }
+function zoomOut() { setZoom(zoom - 0.1); }
+function resetZoom() { setZoom(1); }
+
+/* ===== DATA ===== */
+let channels = JSON.parse(localStorage.getItem("channels")) || ["general", "rop-basic", "guide-casio-discord"];
+let current = "general";
+
+const chatBox = document.getElementById("chat-box");
+const list = document.getElementById("channel-list");
+const text = document.getElementById("text");
+const toast = document.getElementById("copy-toast");
+
+/* ===== CHANNEL (ĐÃ TÍCH HỢP NÚT XÓA KÊNH) ===== */
+function renderChannels() {
+    list.innerHTML = "";
+    channels.forEach(c => {
+        const div = document.createElement("div");
+        div.className = "channel-item" + (c === current ? " active" : "");
+        
+        // Click vào khu vực chữ thì chuyển kênh
+        div.onclick = function() { switchC(c); };
+
+        // Tạo cấu trúc gồm tên kênh và nút xóa (Không cho xóa kênh 'general' mặc định)
+        let deleteBtnHtml = (c !== "general") ? `<button class="btn-delete-channel" onclick="deleteChannel('${c}'); event.stopPropagation();">✕</button>` : "";
+        
+        div.innerHTML = `<span># ${c}</span> ${deleteBtnHtml}`;
+        list.appendChild(div);
+    });
+}
+
+function switchC(c) {
+    save(); 
+    current = c;
+    document.getElementById("current").innerText = "# " + c;
+    load();
+    renderChannels();
+}
+
+function createChannel() {
+    const name = prompt("Tên kênh mới:")?.trim();
+    if (!name || channels.includes(name)) return;
+
+    channels.push(name);
+    localStorage.setItem("channels", JSON.stringify(channels));
+    switchC(name);
+}
+
+/* ===== HÀM XÓA KÊNH CHAT ===== */
+function deleteChannel(channelName) {
+    if (confirm(`Bạn có chắc chắn muốn XÓA HẲN kênh #${channelName} cùng toàn bộ tin nhắn không?`)) {
+        // 1. Xóa mảng kênh trong bộ nhớ hiện tại
+        channels = channels.filter(c => c !== channelName);
+        localStorage.setItem("channels", JSON.stringify(channels));
+        
+        // 2. Xóa sạch dữ liệu chat lưu trữ của kênh đó
+        localStorage.removeItem("chat_" + channelName);
+        
+        // 3. Nếu đang đứng ở kênh bị xóa, tự động đá người dùng về kênh 'general'
+        if (current === channelName) {
+            current = "general";
+            document.getElementById("current").innerText = "# general";
+            load();
+        }
+        
+        // 4. Vẽ lại danh sách kênh mới
+        renderChannels();
+    }
+}
+
+/* ===== SAVE / LOAD ===== */
+function save() {
+    localStorage.setItem("chat_" + current, chatBox.innerHTML);
+}
+
+function load() {
+    chatBox.innerHTML = localStorage.getItem("chat_" + current) || "";
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+/* ===== SEND ===== */
+function send() {
+    let checkText = text.innerHTML.replace(/<br\s*\/?>/gi, "").trim();
+    if (!checkText) {
+        text.innerHTML = "";
+        return;
+    }
+
+    let messageHtml = text.innerHTML;
+
+    const div = document.createElement("div");
+    div.className = "msg-container";
+
+    div.innerHTML = `
+        <div class="msg-content">${messageHtml}</div>
+        <button onclick="this.parentElement.remove(); save(); event.stopPropagation()">✕</button>
+    `;
+
+    chatBox.appendChild(div);
+    text.innerHTML = "";
+    save();
+    
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+/* ===== COPY ===== */
+document.addEventListener("dblclick", e => {
+    const msg = e.target.closest(".msg-container");
+    if (!msg) return;
+
+    const content = msg.querySelector(".msg-content")?.innerText || msg.innerText;
+
+    navigator.clipboard.writeText(content).then(() => {
+        toast.style.display = "block";
+        setTimeout(() => toast.style.display = "none", 1500);
+    });
+});
+
+/* ===== FORMAT ===== */
+function format(cmd) {
+    document.execCommand(cmd, false, null);
+    text.focus();
+}
+
+/* ===== CLEAR CHAT ===== */
+function clearChat() {
+    if (confirm("Xóa toàn bộ nội dung chat của kênh này?")) {
+        chatBox.innerHTML = "";
+        save();
+    }
+}
+
+/* ===== ENTER & SHIFT ENTER ===== */
+text.addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+        if (!e.shiftKey) {
+            e.preventDefault();
+            send();
+        } else {
+            document.execCommand('insertLineBreak', false, null);
+            e.preventDefault();
+        }
+    }
+});
+
+/* INIT */
+renderChannels();
+load();
+
+</script>
+
+</body>
+</html>
