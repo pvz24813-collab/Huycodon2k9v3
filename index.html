@@ -1,361 +1,466 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<title>Chat Pro Final Fix - Discord Style</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HƯỚNG DẪN ROP TRÊN CASIO fx-580VN X</title>
+    <style>
+        :root {
+            --primary-color: #1e3c72;
+            --secondary-color: #2a5298;
+            --accent-color: #f39c12;
+            --bg-color: #f8f9fa;
+            --text-color: #2c3e50;
+            --code-bg: #282c34;
+            --code-color: #abb2bf;
+        }
 
-<style>
-:root {
-    --bg-sidebar: #1e1f22;
-    --bg-chat: #313338;
-    --bg-input: #383a40;
-    --text: #dbdee1;
-    --accent: #5865f2;
-}
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: #eef2f7;
+            margin: 0;
+            padding: 20px;
+        }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: var(--bg-chat);
-    color: var(--text);
-    overflow: hidden;
-    height: 100vh;
-}
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
 
-/* SIDEBAR */
-#sidebar {
-    width: 240px;
-    height: 100vh;
-    float: left;
-    background: var(--bg-sidebar);
-    display: flex;
-    flex-direction: column;
-}
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: #ffffff;
+            padding: 30px 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
 
-#sidebar-header {
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    font-weight: bold;
-    align-items: center;
-}
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-.channel-item {
-    padding: 8px 10px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+        .header .author {
+            font-style: italic;
+            opacity: 0.9;
+            font-size: 14px;
+        }
 
-.channel-item:hover,
-.channel-item.active {
-    background: #2b2d31;
-}
+        .intro {
+            background-color: var(--bg-color);
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            border-radius: 0 6px 6px 0;
+        }
 
-.channel-item span {
-    flex: 1;
-}
+        .toc {
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 20px 25px;
+            margin-bottom: 35px;
+        }
 
-.btn-delete-channel {
-    background: transparent;
-    color: #949ba4;
-    padding: 2px 6px;
-    font-size: 12px;
-    border-radius: 3px;
-    display: none; /* Ẩn đi, chỉ hiện khi hover */
-}
+        .toc h2 {
+            margin-top: 0;
+            font-size: 18px;
+            border-bottom: 2px solid #cbd5e1;
+            padding-bottom: 8px;
+            color: var(--primary-color);
+        }
 
-.channel-item:hover .btn-delete-channel {
-    display: inline-block;
-}
+        .toc ul {
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
 
-.btn-delete-channel:hover {
-    background: #f23f43;
-    color: white;
-}
+        .toc li {
+            margin-bottom: 6px;
+        }
 
-/* MAIN */
-#main {
-    margin-left: 240px;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
+        .toc a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
 
-#chat-header {
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-shrink: 0;
-}
+        .toc a:hover {
+            text-decoration: underline;
+        }
 
-#chat-box {
-    flex: 1;
-    overflow-y: auto;
-    padding: 15px;
-    min-height: 0; /* SỬA LỖI: Cho phép chat-box co giãn linh hoạt mà không đẩy ô input */
-}
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 6px;
+            margin-top: 35px;
+            font-size: 20px;
+            text-transform: uppercase;
+        }
 
-/* TOOLBAR */
-#toolbar {
-    display: flex;
-    gap: 8px;
-    padding: 8px;
-    background: #2b2d31;
-    flex-shrink: 0;
-}
+        h3 {
+            color: var(--text-color);
+            background-color: #eef2f7;
+            padding: 8px 12px;
+            border-left: 4px solid var(--secondary-color);
+            margin-top: 25px;
+            font-size: 16px;
+            border-radius: 0 4px 4px 0;
+        }
 
-button {
-    background: var(--accent);
-    border: none;
-    color: white;
-    padding: 5px 8px;
-    cursor: pointer;
-    border-radius: 4px;
-}
+        h4 {
+            color: #34495e;
+            margin-top: 20px;
+            font-size: 15px;
+        }
 
-/* MESSAGE */
-.msg-container {
-    padding: 8px;
-    margin-bottom: 6px;
-    background: #2b2d31;
-    display: flex;
-    justify-content: space-between;
-    border-radius: 5px;
-    align-items: flex-start;
-}
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            background-color: #f0f3f6;
+            color: #c7254e;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
 
-.msg-content {
-    flex: 1;
-    word-break: break-word;
-    white-space: pre-wrap;
-}
+        pre {
+            background-color: var(--code-bg);
+            color: var(--code-color);
+            padding: 15px 18px;
+            border-radius: 8px;
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            font-size: 13.5px;
+            line-height: 1.5;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 15px 0;
+        }
 
-/* INPUT */
-#text {
-    min-height: 50px;
-    max-height: 150px; /* Thêm giới hạn chiều cao tối đa để tránh tràn màn hình khi nhập quá nhiều dòng */
-    margin: 10px;
-    padding: 8px;
-    background: var(--bg-input);
-    border-radius: 5px;
-    outline: none;
-    overflow-y: auto;
-    flex-shrink: 0; /* SỬA LỖI: Ép ô nhập liệu không bao giờ bị co rúm hoặc biến mất */
-}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 14px;
+        }
 
-/* TOAST */
-#copy-toast {
-    position: fixed;
-    bottom: 80px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #23a559;
-    padding: 8px 14px;
-    border-radius: 20px;
-    display: none;
-    z-index: 999;
-}
-</style>
+        th, td {
+            border: 1px solid #dcdfe6;
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--secondary-color);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--bg-color);
+        }
+
+        .note {
+            background-color: #fff8e6;
+            border-left: 4px solid var(--accent-color);
+            padding: 12px 15px;
+            margin: 15px 0;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .important {
+            background-color: #fde8e8;
+            border-left: 4px solid #e74c3c;
+            padding: 12px 15px;
+            margin: 15px 0;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .footer {
+            background-color: #f1f5f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 40px;
+            border: 1px solid #cbd5e1;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .container { padding: 20px; }
+        }
+    </style>
 </head>
-
 <body>
 
-<div id="copy-toast">Đã sao chép</div>
+<div class="container">
 
-<div id="sidebar">
-    <div id="sidebar-header">
-        CHAT
-        <button onclick="createChannel()">+</button>
+    <div class="header">
+        <h1>HƯỚNG DẪN ROP TRÊN CASIO fx-580VN X</h1>
+        <div class="author">Biên soạn bởi @Bashamee</div>
     </div>
-    <div id="channel-list"></div>
+
+    <div class="intro">
+        Tài liệu này tổng hợp kiến thức cơ bản về vi điều khiển nX-U16/100 và các kỹ thuật ROP (Return-Oriented Programming) để lập trình cho máy tính Casio fx-580VN X.
+    </div>
+
+    <div class="toc">
+        <h2>MỤC LỤC</h2>
+        <ul>
+            <li><a href="#phan1">PHẦN 1: KIẾN THỨC CƠ BẢN</a>
+                <ul>
+                    <li>1.0 Hệ cơ số (dec, hex, bin)</li>
+                    <li>1.1 Các thanh ghi (Registers)</li>
+                    <li>1.2 Biểu diễn số hex</li>
+                    <li>1.3 Bộ nhớ</li>
+                    <li>1.4 Các lệnh cơ bản (Assembly)</li>
+                    <li>1.5 Ngăn xếp (Stack)</li>
+                </ul>
+            </li>
+            <li><a href="#phan2">PHẦN 2: DISASSEMBLY & GADGET</a>
+                <ul>
+                    <li>2.1 Disassembly là gì?</li>
+                    <li>2.2 Gadget là gì?</li>
+                    <li>2.3 Cách gọi gadget</li>
+                    <li>2.4 Đọc file disassembly</li>
+                    <li>2.5 Quy ước gọi hàm</li>
+                    <li>2.6 Đọc và ghi RAM</li>
+                    <li>2.7 Lệnh nhảy B và BL</li>
+                    <li>2.8 Lệnh POP, POP PC, RT</li>
+                </ul>
+            </li>
+            <li><a href="#phan3">PHẦN 3: CÁC HÀM PHỔ BIẾN</a>
+                <ul>
+                    <li>3.1 Hàm printline</li>
+                    <li>3.2 Hàm smallprint</li>
+                    <li>3.3 Hàm render_bitmap</li>
+                    <li>3.4 Hàm line_draw</li>
+                    <li>3.5 Hàm waitshift</li>
+                    <li>3.6 Hàm calc_func</li>
+                    <li>3.7 Hàm cmp_ea</li>
+                    <li>3.8 Các hàm đọc phím</li>
+                    <li>3.9 Hàm delay</li>
+                    <li>3.10 Các dạng so sánh</li>
+                </ul>
+            </li>
+            <li><a href="#phan4">PHẦN 4: KỸ THUẬT ROP</a>
+                <ul>
+                    <li>4.1 Kỹ thuật vòng lặp (loop)</li>
+                    <li>4.2 Offset & Địa chỉ</li>
+                    <li>4.3 Tăng/Giảm giá trị & Scroll</li>
+                    <li>4.4 Ghi giá trị (set)</li>
+                    <li>4.5 Xử lý phím với cmp_ea</li>
+                    <li>4.6 Verify kết hợp cmp_ea</li>
+                </ul>
+            </li>
+            <li><a href="#phan5">PHẦN 5: CÁC LƯU Ý CẦN NHỚ</a></li>
+            <li><a href="#phan6">PHẦN 6: KẾT THÚC & LỜI CẢM ƠN</a></li>
+        </ul>
+    </div>
+
+    <h2 id="phan1">PHẦN 1: KIẾN THỨC CƠ BẢN</h2>
+
+    <h3>1.0 Hệ thập phân (dec), thập lục phân (hex) và nhị phân (bin)</h3>
+    <ul>
+        <li><strong>Hệ thập phân (dec):</strong> Hệ cơ số 10, dùng các chữ số 0-9. Ví dụ: 123, 255.</li>
+        <li><strong>Hệ thập lục phân (hex):</strong> Hệ cơ số 16, dùng các chữ số 0-9 và A-F. Mỗi chữ số hex tương ứng 4 bit nhị phân. Trong tài liệu này, hex được viết dưới dạng hai byte liên tiếp theo thứ tự little-endian, hoặc kèm tiền tố 0x. Ví dụ: <code>hex 00 01 = 0x0100</code>, <code>hex 2e d7 = 0xd72e</code>.</li>
+        <li><strong>Hệ nhị phân (bin):</strong> Hệ cơ số 2, chỉ dùng 0 và 1.</li>
+    </ul>
+
+    <p><strong>Các phép chuyển đổi cơ bản:</strong></p>
+    <ul>
+        <li>Một byte (8 bit) có giá trị từ 0 đến 255 (dec) = <code>0x00</code> đến <code>0xFF</code> (hex).</li>
+        <li>Hai byte ghép lại thành word (16 bit), giá trị từ 0 đến 65535 (dec) = <code>0x0000</code> đến <code>0xFFFF</code> (hex).</li>
+        <li>Địa chỉ bộ nhớ thường được viết dưới dạng hex với tiền tố 0x, ví dụ <code>0xD730</code>.</li>
+    </ul>
+
+    <h3>1.1 Các thanh ghi (Registers)</h3>
+    <p>Thanh ghi chính là những ô nhớ cực kỳ nhanh nằm ngay trong CPU, chứa dữ liệu đang được xử lý ngay lập tức.</p>
+
+    <h4>Sơ đồ phân cấp thanh ghi:</h4>
+<pre>QR0 (chứa được 8 byte)
+├── XR0 (4 byte)
+│   ├── ER0 (2 byte)  --> [R1, R0]
+│   └── ER2 (2 byte)  --> [R3, R2]
+└── XR4 (4 byte)
+    ├── ER4 (2 byte)  --> [R5, R4]
+    └── ER6 (2 byte)  --> [R7, R6]
+
+QR8 (8 byte)
+├── XR8 (4 byte)
+│   ├── ER8 (2 byte)  --> [R9, R8]
+│   └── ER10 (2 byte) --> [R11, R10]
+└── XR12 (4 byte)
+    ├── ER12 (2 byte) --> [R13, R12]
+    └── ER14 (2 byte) --> [R15, R14]</pre>
+
+    <p><strong>Tóm lại:</strong></p>
+    <ul>
+        <li><code>Rn</code> (R0 → R15): 1 byte, đơn vị nhỏ nhất.</li>
+        <li><code>ERn</code> (ER0, ER2, ..., ER14): 2 byte, ghép 2 thanh ghi R liền nhau.</li>
+        <li><code>XRn</code> (XR0, XR4, XR8, XR12): 4 byte, ghép 2 ER liền nhau.</li>
+        <li><code>QRn</code> (QR0, QR8): 8 byte, ghép 2 XR liền nhau.</li>
+    </ul>
+
+    <p><strong>Thanh ghi điều khiển quan trọng:</strong></p>
+    <ul>
+        <li><code>PC</code> (Program Counter): 2 byte, chứa địa chỉ lệnh hiện tại.</li>
+        <li><code>SP</code> (Stack Pointer): 2 byte, trỏ đến đỉnh ngăn xếp.</li>
+        <li><code>LR</code> (Link Register): 2 byte, lưu địa chỉ trả về khi gọi hàm con (BL).</li>
+        <li><code>EA</code> (Effective Address): 2 byte, dùng trong địa chỉ gián tiếp [EA] và [EA+].</li>
+    </ul>
+
+    <h3>1.2 Biểu diễn số hex</h3>
+    <ul>
+        <li>Giá trị <code>0001</code> có 2 cách biểu diễn: <code>hex 00 01</code> hoặc <code>0x0100</code>.</li>
+        <li>Ký hiệu <code>0x</code> sẽ ngược lại với <code>hex</code>:
+            <ul>
+                <li>Địa chỉ e9e0 → <code>0xe9e0</code></li>
+                <li>Địa chỉ d730 → <code>0xd730</code></li>
+            </ul>
+        </li>
+        <li>Ví dụ đảo ngược byte:
+            <ul>
+                <li><code>hex 2e d7 = 0xd72e</code></li>
+                <li><code>hex 30 d6 84 d1 = 0xd184d630</code></li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>1.3 Bộ nhớ</h3>
+    <table>
+        <tr><th>Địa chỉ</th><th>Chức năng / Mô tả</th></tr>
+        <tr><td><code>0xD180 - 0xD246</code></td><td>Vùng nhập liệu (Input buffer)</td></tr>
+        <tr><td><code>0xD248 - 0xD30E</code></td><td>Vùng lịch sử (History)</td></tr>
+        <tr><td><code>0xD522 - 0xD5E8</code></td><td>Vùng Undo</td></tr>
+        <tr><td><code>0xDDD4</code></td><td>Bộ đệm màn hình 1 (Screen buffer 1)</td></tr>
+        <tr><td><code>0xE3D4</code></td><td>Bộ đệm màn hình 2 (Screen buffer 2)</td></tr>
+        <tr><td><code>0xE9E0</code></td><td>Vùng an toàn để lưu chương trình (Backup)</td></tr>
+        <tr><td><code>0xD730</code></td><td>Địa chỉ chạy chương trình (Runtime)</td></tr>
+        <tr><td><code>0xD111</code></td><td>Chế độ hiện tại (Mode)</td></tr>
+        <tr><td><code>0xD137</code></td><td>Kích thước font (font_size)</td></tr>
+        <tr><td><code>0xD138</code></td><td>Đảo ngược màu (01: bình thường, 04: ngược màu)</td></tr>
+        <tr><td><code>0xF033</code></td><td>Độ sáng màn hình (giá trị càng lớn càng tối)</td></tr>
+        <tr><td><code>0xF039</code></td><td>Cuộn màn hình (Scroll)</td></tr>
+    </table>
+
+    <h3>1.4 Các lệnh cơ bản (Assembly)</h3>
+<pre>MOV a, b          : Gán b vào a.
+ADD a, b          : a = a + b.
+SUB a, b          : a = a - b.
+CMP a, b          : So sánh a và b, cập nhật cờ.
+L a, [b]          : Tải dữ liệu từ bộ nhớ tại địa chỉ b vào thanh ghi a.
+ST a, [b]         : Lưu dữ liệu trong thanh ghi a vào bộ nhớ tại địa chỉ b.
+PUSH r / POP r    : Đẩy vào / Lấy ra từ ngăn xếp (Stack).
+B label           : Nhảy không điều kiện.
+BC cond, label    : Nhảy có điều kiện.
+BL label/reg      : Nhảy đến label/reg, lưu địa chỉ trả về vào LR.
+RT                : Trở về từ chương trình con (PC = LR).
+NOP               : Không làm gì.</pre>
+
+    <h2 id="phan2">PHẦN 2: DISASSEMBLY & GADGET</h2>
+
+    <h3>2.1 Disassembly & Gadget</h3>
+    <ul>
+        <li><strong>Disassembly:</strong> File chứa mã assembly được dịch ngược từ ROM.</li>
+        <li><strong>Gadget:</strong> Đoạn mã kết thúc bằng <code>RT</code> hoặc <code>POP PC</code>.</li>
+    </ul>
+
+    <h3>2.2 Cách gọi gadget trong code</h3>
+<pre>call ABCDE = DE BC ?A ??  (thường để ?=3 và ??=30)
+Ví dụ: pop xr0 = call 17B34 => hex: 34 7B 31 30</pre>
+
+    <h2 id="phan3">PHẦN 3: CÁC HÀM PHỔ BIẾN</h2>
+
+    <h3>3.1 Hàm in chữ (printline)</h3>
+    <p>In dòng chữ font to tại vị trí chỉ định. Địa chỉ: <code>23DC8</code>.</p>
+<pre>org 0xe9e0
+setup:
+    buffer_clear
+    setlr
+    setsfr
+inchu:
+    xr0 = 0x3021, adr_of text    # linepos = 21 (dòng 3)
+    printline
+    render.ddd4
+text:
+    str "Xin~chào"
+    0x00</pre>
+
+    <h3>3.2 Các hàm đọc phím (getkey / getscancode)</h3>
+    <table>
+        <tr><th>Hàm</th><th>Địa chỉ</th><th>Mô tả</th></tr>
+        <tr><td><code>getkey / getscancode_nodelay</code></td><td><code>2F5EA</code></td><td>Đọc phím không chờ</td></tr>
+        <tr><td><code>getscancode</code></td><td><code>1F24E</code></td><td>Đọc phím có chờ</td></tr>
+    </table>
+
+    <div class="note">
+        <strong>Bảng keycode KI/KO phổ biến:</strong><br>
+        <code>SHIFT: 80 01</code> | <code>ALPHA: 80 02</code> | <code>MENU: 80 10</code> | <code>AC: 04 10</code> | <code>=: 01 40</code><br>
+        <code>Phím 1-3: 01 01, 01 02, 01 04</code> | <code>Phím 4-6: 02 01, 02 02, 02 04</code>
+    </div>
+
+    <h2 id="phan4">PHẦN 4: KỸ THUẬT XÂY DỰNG CHƯƠNG TRÌNH ROP</h2>
+
+    <h3>4.1 Kỹ thuật vòng lặp (Loop)</h3>
+<pre>loop:
+    qr0 = 0xd62e3030d184d630
+    call 0x203c8                # strcpy
+    sp = er6, pop er8           # gadget 0x21F74</pre>
+
+    <h3>4.2 Offset – Cách tính địa chỉ chính xác</h3>
+    <div class="important">
+        <strong>Công thức Offset Backup:</strong><br>
+        <code>Địa chỉ Backup = Địa chỉ Runtime + 4784 (tức 0x12B0)</code><br>
+        Cú pháp trong Assembly: <code>adr_of [+4784] bien</code>
+    </div>
+
+    <h3>4.3 Xử lý phím với cmp_ea</h3>
+<pre>setup_key:
+    er0 = adr_of key
+    getkey
+    setlr
+    pop er0
+key:
+    hex 00 00
+    ea = adr_of table
+    cmp_ea
+    er6 = [ea]                  # Gadget 1C64A
+    sp = er6, pop er8           # Gadget 21F74
+table:
+    hex 01 01                   # Phím 1
+    adr_of [-2] func1
+    hex 00 00                   # Mặc định
+    adr_of [-2] loop</pre>
+
+    <h2 id="phan5">PHẦN 5: CÁC LƯU Ý CẦN NHỚ</h2>
+    <ol>
+        <li>Ký hiệu <code>0x</code> ngược lại với <code>hex</code>: <code>hex 00 01 -&gt; 0x0100</code>.</li>
+        <li>Tên label không trùng nhau, không chứa dấu tiếng Việt hay khoảng trắng.</li>
+        <li>Đầu mỗi chương trình luôn có <code>setlr</code>, <code>setsfr</code> và <code>buffer_clear</code>.</li>
+        <li>Thứ tự cấu trúc code: <code>[Mã xử lý] -&gt; loop -&gt; table -&gt; dữ liệu</code>.</li>
+        <li>Khi có loop trong program, khai báo địa chỉ bắt đầu là <code>org 0xd730</code>.</li>
+    </ol>
+
+    <div class="footer" id="phan6">
+        <h2>PHẦN 6: KẾT THÚC & LỜI CẢM ƠN</h2>
+        <p>Tài liệu được đúc kết từ quá trình nghiên cứu, tham khảo tài liệu chính thống <em>"nX-U16/100 Core Cẩm nang hướng dẫn"</em> của LAPIS Semiconductor cùng cộng đồng ROP Casio.</p>
+        <p><strong>Biên soạn:</strong> @Bashamee<br>
+        <strong>Đóng góp chính:</strong> @mathfischist_91422, @ahbanh (aka luoi)<br>
+        <strong>Testers:</strong> @phong2k11_4, @itssuperplayz, @hanhdo0230, @dunghackcasio...</p>
+    </div>
+
 </div>
-
-<div id="main">
-
-    <div id="chat-header">
-        <span id="current"># general</span>
-
-        <div style="margin-left:auto; display:flex; gap:5px;">
-            <button onclick="zoomOut()">-</button>
-            <button onclick="resetZoom()">100%</button>
-            <button onclick="zoomIn()">+</button>
-        </div>
-
-        <button onclick="clearChat()" style="background:red;">Xóa lịch sử</button>
-    </div>
-
-    <div id="toolbar">
-        <button onclick="format('bold')"><b>B</b></button>
-        <button onclick="format('italic')"><i>I</i></button>
-        <button onclick="format('insertUnorderedList')">List</button>
-    </div>
-
-    <div id="chat-box"></div>
-
-    <div id="text" contenteditable="true"></div>
-</div>
-
-<script>
-
-/* ===== ZOOM FIX ===== */
-let zoom = 1;
-function setZoom(v) {
-    zoom = Math.max(0.6, Math.min(1.8, v));
-    document.documentElement.style.zoom = zoom;
-}
-function zoomIn() { setZoom(zoom + 0.1); }
-function zoomOut() { setZoom(zoom - 0.1); }
-function resetZoom() { setZoom(1); }
-
-/* ===== DATA ===== */
-let channels = JSON.parse(localStorage.getItem("channels")) || ["general", "rop-basic", "guide-casio-discord"];
-let current = "general";
-
-const chatBox = document.getElementById("chat-box");
-const list = document.getElementById("channel-list");
-const text = document.getElementById("text");
-const toast = document.getElementById("copy-toast");
-
-/* ===== CHANNEL (ĐÃ TÍCH HỢP NÚT XÓA KÊNH) ===== */
-function renderChannels() {
-    list.innerHTML = "";
-    channels.forEach(c => {
-        const div = document.createElement("div");
-        div.className = "channel-item" + (c === current ? " active" : "");
-        
-        // Click vào khu vực chữ thì chuyển kênh
-        div.onclick = function() { switchC(c); };
-
-        // Tạo cấu trúc gồm tên kênh và nút xóa (Không cho xóa kênh 'general' mặc định)
-        let deleteBtnHtml = (c !== "general") ? `<button class="btn-delete-channel" onclick="deleteChannel('${c}'); event.stopPropagation();">✕</button>` : "";
-        
-        div.innerHTML = `<span># ${c}</span> ${deleteBtnHtml}`;
-        list.appendChild(div);
-    });
-}
-
-function switchC(c) {
-    save(); 
-    current = c;
-    document.getElementById("current").innerText = "# " + c;
-    load();
-    renderChannels();
-}
-
-function createChannel() {
-    const name = prompt("Tên kênh mới:")?.trim();
-    if (!name || channels.includes(name)) return;
-
-    channels.push(name);
-    localStorage.setItem("channels", JSON.stringify(channels));
-    switchC(name);
-}
-
-/* ===== HÀM XÓA KÊNH CHAT ===== */
-function deleteChannel(channelName) {
-    if (confirm(`Bạn có chắc chắn muốn XÓA HẲN kênh #${channelName} cùng toàn bộ tin nhắn không?`)) {
-        // 1. Xóa mảng kênh trong bộ nhớ hiện tại
-        channels = channels.filter(c => c !== channelName);
-        localStorage.setItem("channels", JSON.stringify(channels));
-        
-        // 2. Xóa sạch dữ liệu chat lưu trữ của kênh đó
-        localStorage.removeItem("chat_" + channelName);
-        
-        // 3. Nếu đang đứng ở kênh bị xóa, tự động đá người dùng về kênh 'general'
-        if (current === channelName) {
-            current = "general";
-            document.getElementById("current").innerText = "# general";
-            load();
-        }
-        
-        // 4. Vẽ lại danh sách kênh mới
-        renderChannels();
-    }
-}
-
-/* ===== SAVE / LOAD ===== */
-function save() {
-    localStorage.setItem("chat_" + current, chatBox.innerHTML);
-}
-
-function load() {
-    chatBox.innerHTML = localStorage.getItem("chat_" + current) || "";
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-/* ===== SEND ===== */
-function send() {
-    let checkText = text.innerHTML.replace(/<br\s*\/?>/gi, "").trim();
-    if (!checkText) {
-        text.innerHTML = "";
-        return;
-    }
-
-    let messageHtml = text.innerHTML;
-
-    const div = document.createElement("div");
-    div.className = "msg-container";
-
-    div.innerHTML = `
-        <div class="msg-content">${messageHtml}</div>
-        <button onclick="this.parentElement.remove(); save(); event.stopPropagation()">✕</button>
-    `;
-
-    chatBox.appendChild(div);
-    text.innerHTML = "";
-    save();
-    
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-/* ===== COPY ===== */
-document.addEventListener("dblclick", e => {
-    const msg = e.target.closest(".msg-container");
-    if (!msg) return;
-
-    const content = msg.querySelector(".msg-content")?.innerText || msg.innerText;
-
-    navigator.clipboard.writeText(content).then(() => {
-        toast.style.display = "block";
-        setTimeout(() => toast.style.display = "none", 1500);
-    });
-});
-
-/* ===== FORMAT ===== */
-function format(cmd) {
-    document.execCommand(cmd, false, null);
-    text.focus();
-}
-
-/* ===== CLEAR CHAT ===== */
-function clearChat() {
-    if (confirm("Xóa toàn bộ nội dung chat của kênh này?")) {
-        chatBox.innerHTML = "";
-        save();
-    }
-}
-
-/* ===== ENTER & SHIFT ENTER ===== */
-text.addEventListener("keydown", e => {
-    if (e.key === "Enter") {
-        if (!e.shiftKey) {
-            e.preventDefault();
-            send();
-        } else {
-            document.execCommand('insertLineBreak', false, null);
-            e.preventDefault();
-        }
-    }
-});
-
-/* INIT */
-renderChannels();
-load();
-
-</script>
 
 </body>
 </html>
